@@ -1,4 +1,4 @@
 package com.luizfsilvano.wallet.web.controller;
 
-public class TransactionDTO {
+public class TransactionController {
 }
