@@ -5,6 +5,6 @@ import com.luizfsilvano.wallet.domain.model.Wallet;
 
 import java.math.BigDecimal;
 
-public interface TransactionStrategy {
+public interface    TransactionStrategy {
     BigDecimal apply(Transaction transaction, Wallet wallet);
 }
