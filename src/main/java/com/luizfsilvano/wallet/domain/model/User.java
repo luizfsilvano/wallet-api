@@ -33,8 +33,8 @@ public class User {
     private List<String> roles;
 
     // Relation with Wallet
-    @OneToOne(mappedBy="user", cascade = CascadeType.ALL)
-    private Wallet wallet;
+    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+    private List<Wallet> wallets;
 
 
 }
