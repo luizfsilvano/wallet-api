@@ -20,10 +20,10 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
     // The password should be stored securely, ideally hashed
-    @Column(unique = true)
     private String password;
 
     private String email;
