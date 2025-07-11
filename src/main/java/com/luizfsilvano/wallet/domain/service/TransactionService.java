@@ -7,7 +7,6 @@ import com.luizfsilvano.wallet.domain.repository.TransactionRepository;
 import com.luizfsilvano.wallet.domain.repository.WalletRepository;
 import com.luizfsilvano.wallet.web.dto.CreateTransactionDTO;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
