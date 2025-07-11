@@ -7,6 +7,9 @@ import com.luizfsilvano.wallet.domain.repository.TransactionRepository;
 import com.luizfsilvano.wallet.domain.repository.WalletRepository;
 import com.luizfsilvano.wallet.web.dto.CreateTransactionDTO;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -57,9 +60,9 @@ public class TransactionService {
         return tx;
     }
 
-    public List<Transaction> getByWallet(Long walletId) {
-        // Retrieve transactions by wallet ID
-        return transactionRepo.findByWalletId(walletId);
+    public Page<Transaction> getByWallet(Long walletId, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+        // Retrieve transactions by wallet ID and date range
+        return transactionRepo.findByWalletIdAndDateTimeBetween(walletId, startDate, endDate, pageable);
     }
 
 }
