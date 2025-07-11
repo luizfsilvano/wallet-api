@@ -3,6 +3,7 @@ package com.luizfsilvano.wallet.web.controller;
 import com.luizfsilvano.wallet.domain.service.UserService;
 import com.luizfsilvano.wallet.security.JwtUtil;
 import com.luizfsilvano.wallet.web.dto.AuthResponse;
+import com.luizfsilvano.wallet.web.dto.LoginDTO;
 import com.luizfsilvano.wallet.web.dto.RegisterDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
