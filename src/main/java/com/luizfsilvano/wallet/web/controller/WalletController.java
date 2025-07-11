@@ -2,8 +2,8 @@ package com.luizfsilvano.wallet.web.controller;
 
 import com.luizfsilvano.wallet.domain.model.User;
 import com.luizfsilvano.wallet.domain.model.Wallet;
-import com.luizfsilvano.wallet.domain.repository.UserRepository;
 import com.luizfsilvano.wallet.domain.repository.WalletRepository;
+import com.luizfsilvano.wallet.domain.service.UserService;
 import com.luizfsilvano.wallet.web.dto.CreateWalletDTO;
 import com.luizfsilvano.wallet.web.dto.WalletDTO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -19,18 +18,16 @@ import java.util.List;
 public class WalletController {
 
     private final WalletRepository walletRepo;
-    private final UserRepository userRepo;
+    private final UserService userService;
 
-    public WalletController(WalletRepository walletRepo, UserRepository userRepo) {
+    public WalletController(WalletRepository walletRepo, UserService userService) {
         this.walletRepo = walletRepo;
-        this.userRepo = userRepo;
+        this.userService = userService;
     }
 
     @PostMapping
-    public WalletDTO createWallet (@Validated @RequestBody CreateWalletDTO dto, @AuthenticationPrincipal UserDetails ud) {
-        // Obtains the user from domain
-        User user = userRepo.findByUsername(ud.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public WalletDTO createWallet(@Validated @RequestBody CreateWalletDTO dto, @AuthenticationPrincipal UserDetails ud) {
+        User user = userService.findByUsername(ud.getUsername());
 
         Wallet w = new Wallet();
         w.setBalance(dto.getBalance());
@@ -42,12 +39,8 @@ public class WalletController {
 
     @GetMapping
     public List<WalletDTO> listWallets(@AuthenticationPrincipal UserDetails ud) {
-        User user = userRepo.findByUsername(ud.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userService.findByUsername(ud.getUsername());
 
-        return walletRepo.findByUserId(user.getId())
-                .stream()
-                .map(w -> new WalletDTO(w.getId(), w.getBalance()))
-                .toList();
+        return walletRepo.findByUserId(user.getId()).stream().map(w -> new WalletDTO(w.getId(), w.getBalance())).toList();
     }
 }
