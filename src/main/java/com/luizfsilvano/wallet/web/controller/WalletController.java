@@ -41,6 +41,9 @@ public class WalletController {
     public List<WalletDTO> listWallets(@AuthenticationPrincipal UserDetails ud) {
         User user = userService.findByUsername(ud.getUsername());
 
-        return walletRepo.findByUserId(user.getId()).stream().map(w -> new WalletDTO(w.getId(), w.getBalance())).toList();
+        List<Wallet> wallets = walletRepo.findByUserId(user.getId());
+        return wallets.stream()
+                      .map(w -> new WalletDTO(w.getId(), w.getBalance()))
+                      .toList();
     }
 }
