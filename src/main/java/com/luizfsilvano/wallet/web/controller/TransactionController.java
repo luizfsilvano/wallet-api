@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/transactions")
 public class TransactionController {
-    // Definition of endpoints for transaction management will go here
 
     // Injecting the TransactionService to handle transaction-related operations
     private final TransactionService service;
